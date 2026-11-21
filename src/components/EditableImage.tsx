@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Image as ImageIcon, Upload, Link as LinkIcon, Check, X } from 'lucide-react';
 import { AVAILABLE_CLUB_IMAGES } from '../data/defaultSiteData';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 interface EditableImageProps {
   src: string;
@@ -93,7 +94,7 @@ export const EditableImage: React.FC<EditableImageProps> = ({
           </div>
         ) : (
           <img
-            src={src}
+            src={resolveAssetUrl(src)}
             alt={alt}
             referrerPolicy="no-referrer"
             onError={() => setHasError(true)}
@@ -143,7 +144,7 @@ export const EditableImage: React.FC<EditableImageProps> = ({
               <div className="h-44 w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100 flex items-center justify-center">
                 {urlDraft ? (
                   <img
-                    src={urlDraft}
+                    src={resolveAssetUrl(urlDraft)}
                     alt={altDraft}
                     referrerPolicy="no-referrer"
                     className="h-full w-full object-contain"

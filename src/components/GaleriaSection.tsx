@@ -3,6 +3,7 @@ import { Expand, ImagePlus, Trash2, X, ChevronLeft, ChevronRight } from 'lucide-
 import { GalleryPhoto, SiteData } from '../types/site';
 import { EditableText } from './EditableText';
 import { EditableImage } from './EditableImage';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 interface GaleriaSectionProps {
   section: SiteData['galeriaSection'];
@@ -170,7 +171,7 @@ export const GaleriaSection: React.FC<GaleriaSectionProps> = ({
             className="max-w-4xl w-full flex flex-col items-center"
           >
             <img
-              src={activePhoto.image}
+              src={resolveAssetUrl(activePhoto.image)}
               alt={activePhoto.alt}
               referrerPolicy="no-referrer"
               className="max-h-[78vh] w-auto rounded-lg object-contain"

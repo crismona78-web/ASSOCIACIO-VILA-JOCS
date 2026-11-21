@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, Pencil, Check, X } from 'lucide-react';
 import { PageId } from '../types/site';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 interface HeaderProps {
   activePage: PageId;
@@ -43,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
           aria-label="Vila Jocs — Anar a la portada"
         >
           <img
-            src="/images/vila-jocs/logo-vila-jocs-transparent.png"
+            src={resolveAssetUrl('/images/vila-jocs/logo-vila-jocs-transparent.png')}
             alt="Logotip oficial de l'Associació Vila Jocs"
             className="h-11 w-auto object-contain select-none"
           />

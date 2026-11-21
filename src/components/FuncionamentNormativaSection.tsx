@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FileText, ExternalLink, Upload, Download, Eye, X, Check } from 'lucide-react';
 import { RuleDocument, SiteData } from '../types/site';
 import { EditableText } from './EditableText';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 interface FuncionamentNormativaSectionProps {
   section: SiteData['funcionamentSection'];
@@ -47,7 +48,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
         setViewerBlobUrl(null);
       }
     } else {
-      setViewerBlobUrl(viewerDoc.externalUrl);
+      setViewerBlobUrl(resolveAssetUrl(viewerDoc.externalUrl));
     }
   }, [viewerDoc]);
 
@@ -171,7 +172,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
 
                   {doc.externalUrl && (
                     <a
-                      href={doc.externalUrl}
+                      href={resolveAssetUrl(doc.externalUrl)}
                       download={doc.fileName || `${doc.id}.pdf`}
                       className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#111418] hover:text-[#DC2626] transition-colors"
                     >
@@ -242,7 +243,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
 
               <div className="flex items-center gap-2 shrink-0">
                 <a
-                  href={viewerBlobUrl || viewerDoc.externalUrl}
+                  href={viewerBlobUrl || resolveAssetUrl(viewerDoc.externalUrl)}
                   download={viewerDoc.fileName || `${viewerDoc.id}.pdf`}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-xs font-semibold text-[#111418] hover:border-[#111418]"
                 >
@@ -251,7 +252,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
                 </a>
                 {!viewerDoc.externalUrl.startsWith('data:') && (
                   <a
-                    href={viewerDoc.externalUrl}
+                    href={resolveAssetUrl(viewerDoc.externalUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-lg bg-[#DC2626] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#B91C1C]"

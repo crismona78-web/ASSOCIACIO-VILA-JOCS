@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageId } from '../types/site';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 interface FooterProps {
   onNavigate: (page: PageId) => void;
@@ -12,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <img
-              src="/images/vila-jocs/logo-vila-jocs-transparent.png"
+              src={resolveAssetUrl('/images/vila-jocs/logo-vila-jocs-transparent.png')}
               alt="Associació Vila Jocs"
               className="h-10 w-auto object-contain select-none"
             />
