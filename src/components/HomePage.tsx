@@ -26,7 +26,6 @@ interface HomePageProps {
   onUpdateFeaturedGame: (id: string, patch: Partial<FeaturedGame>) => void;
   onNavigate: (page: PageId) => void;
   onRequestGameTable: (gameTitle: string) => void;
-  onActivateEditMode: () => void;
 }
 
 function normalizePhoneForWa(phone: string): string {
@@ -44,7 +43,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   onUpdateFeaturedGame,
   onNavigate,
   onRequestGameTable,
-  onActivateEditMode,
 }) => {
   return (
     <div className="bg-[#F7F7F5] text-[#1C1917]">
@@ -291,18 +289,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <Building2 className="w-8 h-8" />
                     </div>
                     <h3 className="mt-4 font-display text-lg font-bold text-[#1C1917]">
-                      Espai reservat per a la foto de l’edifici
+                      Centre Cívic Vilafortuny
                     </h3>
                     <p className="mt-1.5 max-w-sm text-xs leading-relaxed text-stone-600">
-                      Puja aquí una fotografia del Centre Cívic Vilafortuny perquè els nous visitants reconeguin fàcilment l’entrada.
+                      Avinguda del Castell de Vilafortuny, 33 · Cambrils
                     </p>
-                    <button
-                      type="button"
-                      onClick={onActivateEditMode}
-                      className="mt-4 rounded-lg border border-stone-300 bg-white px-4 py-2 text-xs font-semibold text-[#1C1917] hover:border-[#DC2626] hover:text-[#DC2626] transition-colors cursor-pointer"
-                    >
-                      Pujar foto de l’edifici
-                    </button>
                   </div>
                 )}
               </div>

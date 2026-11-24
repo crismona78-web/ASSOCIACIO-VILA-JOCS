@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { Menu, Pencil, Check, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { PageId } from '../types/site';
 import { resolveAssetUrl } from '../utils/assetUrl';
 
 interface HeaderProps {
   activePage: PageId;
   onNavigate: (page: PageId) => void;
-  isEditMode: boolean;
-  onToggleEditMode: () => void;
-  hasUnsavedChanges: boolean;
 }
 
 const NAV_ITEMS: { id: PageId; label: string }[] = [
@@ -19,13 +16,7 @@ const NAV_ITEMS: { id: PageId; label: string }[] = [
   { id: 'contacte', label: 'Contacte' },
 ];
 
-export const Header: React.FC<HeaderProps> = ({
-  activePage,
-  onNavigate,
-  isEditMode,
-  onToggleEditMode,
-  hasUnsavedChanges,
-}) => {
+export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleNavClick = (page: PageId) => {
@@ -36,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 border-b border-stone-200 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
-        {/* Zone 1: Intact VILA JOCS visual logo */}
+        {/* Intact VILA JOCS visual logo */}
         <button
           type="button"
           onClick={() => handleNavClick('inici')}
@@ -50,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
           />
         </button>
 
-        {/* Zone 2: 5 clean single-line page links */}
+        {/* 5 clean single-line page links */}
         <nav
           aria-label="Navegació principal"
           className="hidden md:flex items-center gap-7 text-sm font-medium text-stone-600"
@@ -75,40 +66,16 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Zone 3: 1 primary action (Manual Edit Mode button) + mobile hamburger */}
-        <div className="flex items-center gap-3 shrink-0">
-          <button
-            type="button"
-            onClick={onToggleEditMode}
-            className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-              isEditMode
-                ? 'bg-[#DC2626] text-white hover:bg-[#B91C1C] focus-visible:ring-[#DC2626]'
-                : 'bg-[#1C1917] text-white hover:bg-stone-800 focus-visible:ring-[#1C1917]'
-            }`}
-          >
-            {isEditMode ? (
-              <>
-                <Check className="w-3.5 h-3.5" />
-                <span>Desar i sortir</span>
-              </>
-            ) : (
-              <>
-                <Pencil className="w-3.5 h-3.5" />
-                <span>{hasUnsavedChanges ? 'Editar web (editat)' : 'Editar web'}</span>
-              </>
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            className="inline-flex md:hidden items-center justify-center rounded-lg border border-stone-200 p-2 text-stone-700 hover:bg-stone-100 cursor-pointer"
-            aria-label={mobileOpen ? 'Tancar menú' : 'Obrir menú'}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          onClick={() => setMobileOpen((prev) => !prev)}
+          className="inline-flex md:hidden items-center justify-center rounded-lg border border-stone-200 p-2 text-stone-700 hover:bg-stone-100 cursor-pointer"
+          aria-label={mobileOpen ? 'Tancar menú' : 'Obrir menú'}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
 
       {/* Mobile Navigation Drawer */}
