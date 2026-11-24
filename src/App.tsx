@@ -84,6 +84,48 @@ function migrateStoredSiteData(parsed: Partial<SiteData>): SiteData {
     DEFAULT_SITE_DATA.contacteSection.contactNote
   );
 
+  // Migrate previous default home texts & building image if still at legacy defaults
+  if (
+    merged.home.introParagraph1.includes('molt més que regles i fitxes') &&
+    merged.home.introParagraph1.includes('seure cara a cara')
+  ) {
+    merged.home.introParagraph1 = DEFAULT_SITE_DATA.home.introParagraph1;
+  }
+  if (
+    merged.home.introParagraph2.includes('partides exigents') &&
+    merged.home.introParagraph2.includes('explicacions sense presses')
+  ) {
+    merged.home.introParagraph2 = DEFAULT_SITE_DATA.home.introParagraph2;
+  }
+  if (
+    merged.home.buildingSectionSubtitle.includes('Aquí pots pujar la fotografia')
+  ) {
+    merged.home.buildingSectionSubtitle = DEFAULT_SITE_DATA.home.buildingSectionSubtitle;
+  }
+  if (!merged.home.buildingImage) {
+    merged.home.buildingImage = DEFAULT_SITE_DATA.home.buildingImage;
+  }
+
+  merged.home.tracks = (merged.home.tracks ?? DEFAULT_SITE_DATA.home.tracks).map((tr) => {
+    const defaultTr = DEFAULT_SITE_DATA.home.tracks.find((d) => d.id === tr.id);
+    if (tr.id === 'tr-1' && defaultTr) {
+      return {
+        ...tr,
+        audience:
+          tr.audience === 'Estratègia profunda, eurogames i duels tàctics'
+            ? defaultTr.audience
+            : tr.audience,
+        description: tr.description.includes('de 90 a 240 minuts: gestió econòmica')
+          ? defaultTr.description
+          : tr.description,
+        examples: tr.examples.includes('Food Chain Magnate, Hegemony')
+          ? defaultTr.examples
+          : tr.examples,
+      };
+    }
+    return tr;
+  });
+
   // Separate Stone Age & Splendor and add Arnak if still using legacy combined fg-4
   const existingFeatured = merged.home.featuredGames ?? [];
   const nextFeatured: FeaturedGame[] = [];
@@ -107,6 +149,8 @@ function migrateStoredSiteData(parsed: Partial<SiteData>): SiteData {
         fg.description.startsWith('Lidera una expedició arqueològica combinant construcció');
       nextFeatured.push({
         ...fg,
+        title: fg.title.replace(/Ruïnes/g, 'Runes'),
+        imageAlt: fg.imageAlt.replace(/Ruïnes/g, 'Runes'),
         description:
           isLegacyUntouchedDesc && defaultMatch ? defaultMatch.description : fg.description,
         imageFit: fg.imageFit ?? defaultMatch?.imageFit ?? 'cover',
@@ -137,12 +181,17 @@ function migrateStoredSiteData(parsed: Partial<SiteData>): SiteData {
     merged.funcionamentSection.eyebrow === 'Organització i normativa'
       ? DEFAULT_SITE_DATA.funcionamentSection.eyebrow
       : merged.funcionamentSection.eyebrow;
-  if (/punts clau/i.test(merged.funcionamentSection.normativaIntro)) {
+  if (/punts clau|adjuntar-ne de nous/i.test(merged.funcionamentSection.normativaIntro)) {
     merged.funcionamentSection.normativaIntro = DEFAULT_SITE_DATA.funcionamentSection.normativaIntro;
   }
   merged.funcionamentSection.documents = merged.funcionamentSection.documents.map((doc) => {
     const defaultDoc = DEFAULT_SITE_DATA.funcionamentSection.documents.find((d) => d.id === doc.id);
-    if (!doc.externalUrl && defaultDoc?.externalUrl) {
+    if (
+      (!doc.externalUrl ||
+        doc.externalUrl ===
+          '/assets/aistudio/Estatuts_constitucio__associacio__VILA_JOCS_fe3bc6b0.pdf') &&
+      defaultDoc?.externalUrl
+    ) {
       return {
         ...doc,
         externalUrl: defaultDoc.externalUrl,
@@ -156,14 +205,17 @@ function migrateStoredSiteData(parsed: Partial<SiteData>): SiteData {
   });
 
   // Merge newly uploaded club photos into gallery without overwriting user photos
-  const existingPhotos = merged.galeriaSection.photos ?? [];
+  const existingPhotos = (merged.galeriaSection.photos ?? []).map((p) => ({
+    ...p,
+    alt: p.alt.replace(/Ruïnes/g, 'Runes'),
+    caption: p.caption.replace(/Ruïnes/g, 'Runes'),
+  }));
   const existingPaths = new Set(existingPhotos.map((p) => p.image));
   const missingNewPhotos = DEFAULT_SITE_DATA.galeriaSection.photos.filter(
     (p) => p.image.startsWith('/assets/aistudio/') && !existingPaths.has(p.image)
   );
-  if (missingNewPhotos.length > 0) {
-    merged.galeriaSection.photos = [...missingNewPhotos, ...existingPhotos];
-  }
+  merged.galeriaSection.photos =
+    missingNewPhotos.length > 0 ? [...missingNewPhotos, ...existingPhotos] : existingPhotos;
 
   return merged;
 }
@@ -388,6 +440,15 @@ export default function App() {
     showToast('Còpia JSON exportada correctament.');
   };
 
+  const handleCopyJson = async () => {
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(siteData, null, 2));
+      showToast('JSON copiat al porta-retalls!');
+    } catch {
+      handleExportJson();
+    }
+  };
+
   const handleImportJson = (file: File) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -434,6 +495,7 @@ export default function App() {
           }}
           onAddPhoto={handleAddPhoto}
           onExportJson={handleExportJson}
+          onCopyJson={handleCopyJson}
           onImportJson={handleImportJson}
           onResetDefaults={handleResetDefaults}
           lastSavedAt={lastSavedAt}

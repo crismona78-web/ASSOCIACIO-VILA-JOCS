@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { FileText, ExternalLink, Upload, Download, Eye, X, Check } from 'lucide-react';
+import {
+  FileText,
+  ExternalLink,
+  Upload,
+  Download,
+  Eye,
+  X,
+  Check,
+  BookOpen,
+} from 'lucide-react';
 import { RuleDocument, SiteData } from '../types/site';
 import { EditableText } from './EditableText';
 import { resolveAssetUrl } from '../utils/assetUrl';
+import { OFFICIAL_DOCUMENTS_TEXT } from '../data/officialDocumentsText';
 
 interface FuncionamentNormativaSectionProps {
   section: SiteData['funcionamentSection'];
@@ -24,6 +34,14 @@ function dataUrlToBlobUrl(dataUrl: string): string {
   return URL.createObjectURL(blob);
 }
 
+function isEmbeddedInIframe(): boolean {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+}
+
 export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSectionProps> = ({
   section,
   isEditMode,
@@ -32,29 +50,68 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
 }) => {
   const [viewerDoc, setViewerDoc] = useState<RuleDocument | null>(null);
   const [viewerBlobUrl, setViewerBlobUrl] = useState<string | null>(null);
+  const [viewerTab, setViewerTab] = useState<'text' | 'pdf'>('pdf');
   const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const openDocumentModal = (doc: RuleDocument) => {
+    const hasOfficialText =
+      Boolean(OFFICIAL_DOCUMENTS_TEXT[doc.id]) && !doc.externalUrl.startsWith('data:');
+    // Embedded iframes (e.g. preview frames) often block browser PDF plugins; default to clean readable text there.
+    setViewerTab(hasOfficialText && isEmbeddedInIframe() ? 'text' : 'pdf');
+    setViewerDoc(doc);
+  };
 
   useEffect(() => {
     if (!viewerDoc?.externalUrl) {
       setViewerBlobUrl(null);
       return;
     }
+
+    let cancelled = false;
+    let createdObjectUrl: string | null = null;
+
     if (viewerDoc.externalUrl.startsWith('data:')) {
       try {
-        const objectUrl = dataUrlToBlobUrl(viewerDoc.externalUrl);
-        setViewerBlobUrl(objectUrl);
-        return () => URL.revokeObjectURL(objectUrl);
+        createdObjectUrl = dataUrlToBlobUrl(viewerDoc.externalUrl);
+        setViewerBlobUrl(createdObjectUrl);
       } catch {
         setViewerBlobUrl(null);
       }
     } else {
-      setViewerBlobUrl(resolveAssetUrl(viewerDoc.externalUrl));
+      const resolvedUrl = resolveAssetUrl(viewerDoc.externalUrl);
+      setViewerBlobUrl(resolvedUrl);
+
+      // Also fetch as Blob so embedded PDF viewer gets a same-origin blob URL when possible
+      fetch(resolvedUrl)
+        .then((res) => (res.ok ? res.blob() : null))
+        .then((blob) => {
+          if (!cancelled && blob) {
+            createdObjectUrl = URL.createObjectURL(
+              new Blob([blob], { type: 'application/pdf' })
+            );
+            setViewerBlobUrl(createdObjectUrl);
+          }
+        })
+        .catch(() => {
+          // Keep resolvedUrl fallback if fetch fails
+        });
     }
+
+    return () => {
+      cancelled = true;
+      if (createdObjectUrl) {
+        URL.revokeObjectURL(createdObjectUrl);
+      }
+    };
   }, [viewerDoc]);
 
   const handleAttachPdf = (doc: RuleDocument, file: File) => {
     setUploadError(null);
-    if (file.type && file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+    if (
+      file.type &&
+      file.type !== 'application/pdf' &&
+      !file.name.toLowerCase().endsWith('.pdf')
+    ) {
       setUploadError('Només es poden adjuntar fitxers en format PDF.');
       return;
     }
@@ -73,6 +130,11 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
     };
     reader.readAsDataURL(file);
   };
+
+  const officialText =
+    viewerDoc && !viewerDoc.externalUrl.startsWith('data:')
+      ? OFFICIAL_DOCUMENTS_TEXT[viewerDoc.id]
+      : undefined;
 
   return (
     <section id="normativa" className="bg-white border-b border-neutral-200 py-14 lg:py-20">
@@ -158,7 +220,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
                   {doc.externalUrl ? (
                     <button
                       type="button"
-                      onClick={() => setViewerDoc(doc)}
+                      onClick={() => openDocumentModal(doc)}
                       className="inline-flex items-center gap-2 rounded-lg bg-[#DC2626] px-4 py-2 text-xs font-semibold text-white hover:bg-[#B91C1C] transition-colors cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5" />
@@ -218,7 +280,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
         </div>
       </div>
 
-      {/* Embedded In-Page PDF Viewer Modal (works reliably inside iframes) */}
+      {/* Embedded Document & PDF Viewer Modal */}
       {viewerDoc && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-3 sm:p-6 backdrop-blur-xs"
@@ -241,7 +303,36 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
                 )}
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
+                {officialText && (
+                  <div className="inline-flex items-center rounded-lg border border-neutral-300 bg-white p-0.5 mr-1">
+                    <button
+                      type="button"
+                      onClick={() => setViewerTab('text')}
+                      className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold cursor-pointer transition-colors ${
+                        viewerTab === 'text'
+                          ? 'bg-[#111418] text-white'
+                          : 'text-neutral-600 hover:text-[#111418]'
+                      }`}
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      Lectura directa
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setViewerTab('pdf')}
+                      className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold cursor-pointer transition-colors ${
+                        viewerTab === 'pdf'
+                          ? 'bg-[#111418] text-white'
+                          : 'text-neutral-600 hover:text-[#111418]'
+                      }`}
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      PDF original
+                    </button>
+                  </div>
+                )}
+
                 <a
                   href={viewerBlobUrl || resolveAssetUrl(viewerDoc.externalUrl)}
                   download={viewerDoc.fileName || `${viewerDoc.id}.pdf`}
@@ -250,6 +341,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
                   <Download className="w-3.5 h-3.5" />
                   Descarregar
                 </a>
+
                 {!viewerDoc.externalUrl.startsWith('data:') && (
                   <a
                     href={resolveAssetUrl(viewerDoc.externalUrl)}
@@ -261,6 +353,7 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 )}
+
                 <button
                   type="button"
                   onClick={() => setViewerDoc(null)}
@@ -272,18 +365,51 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
               </div>
             </div>
 
-            <div className="flex-1 bg-neutral-200">
-              {viewerBlobUrl ? (
-                <iframe
-                  title={viewerDoc.title}
-                  src={viewerBlobUrl}
-                  className="h-full w-full border-0 bg-white"
-                />
+            <div className="flex-1 overflow-hidden bg-neutral-100">
+              {viewerTab === 'text' && officialText ? (
+                <div className="h-full overflow-y-auto bg-white px-5 py-8 sm:px-10">
+                  <div className="mx-auto max-w-3xl space-y-8">
+                    <div className="border-b border-neutral-200 pb-5">
+                      <h4 className="font-display text-xl sm:text-2xl font-bold text-[#111418]">
+                        {officialText.title}
+                      </h4>
+                      <p className="mt-1 text-xs font-mono text-neutral-500">
+                        {officialText.subtitle}
+                      </p>
+                    </div>
+
+                    {officialText.sections.map((sec) => (
+                      <article key={sec.heading} className="space-y-3">
+                        <h5 className="font-display text-base sm:text-lg font-bold text-[#DC2626]">
+                          {sec.heading}
+                        </h5>
+                        <div className="space-y-2.5 text-sm leading-relaxed text-neutral-700">
+                          {sec.paragraphs.map((p, idx) => (
+                            <p key={idx}>{p}</p>
+                          ))}
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              ) : viewerBlobUrl ? (
+                <object
+                  data={viewerBlobUrl}
+                  type="application/pdf"
+                  aria-label={viewerDoc.title}
+                  className="h-full w-full bg-white"
+                >
+                  <iframe
+                    title={viewerDoc.title}
+                    src={viewerBlobUrl}
+                    className="h-full w-full border-0 bg-white"
+                  />
+                </object>
               ) : (
                 <div className="flex h-full flex-col items-center justify-center p-8 text-center text-sm text-neutral-600">
                   <p>No s’ha pogut previsualitzar el PDF dins del navegador.</p>
                   <a
-                    href={viewerDoc.externalUrl}
+                    href={resolveAssetUrl(viewerDoc.externalUrl)}
                     download={viewerDoc.fileName || `${viewerDoc.id}.pdf`}
                     className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#DC2626] px-4 py-2 text-xs font-semibold text-white"
                   >
@@ -299,3 +425,4 @@ export const FuncionamentNormativaSection: React.FC<FuncionamentNormativaSection
     </section>
   );
 };
+

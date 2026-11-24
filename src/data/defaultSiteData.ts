@@ -7,7 +7,8 @@ export const AVAILABLE_CLUB_IMAGES = [
   { label: 'Tauler Carcassonne (sense persones)', path: '/images/vila-jocs/galeria-2.jpg' },
   { label: 'Stone Age (portada)', path: '/assets/aistudio/Captura_de_pantalla_2026-11-21_a_las_20.15.26_d45fefab.png' },
   { label: 'Splendor (portada)', path: '/assets/aistudio/Captura_de_pantalla_2026-11-21_a_las_20.15.08_90932a12.png' },
-  { label: 'Les Ruïnes Perdudes de Arnak (desplegament)', path: '/assets/aistudio/Captura_de_pantalla_2026-11-21_a_las_20.14.18_151c8c5b.png' },
+  { label: 'Les Runes Perdudes de Arnak (desplegament)', path: '/assets/aistudio/Captura_de_pantalla_2026-11-21_a_las_20.14.18_151c8c5b.png' },
+  { label: 'Façana Centre Cívic Vilafortuny', path: '/assets/aistudio/Captura_de_pantalla_2026-11-24_a_las_19.46.06_f9ff114b.png' },
   { label: 'Catan caixa (sense persones)', path: '/images/vila-jocs/game-catan.jpg' },
   { label: 'Carcassonne tauler (sense persones)', path: '/images/vila-jocs/game-carcassonne.jpg' },
   { label: 'Tower Up tauler (sense persones)', path: '/images/vila-jocs/game-towerup.jpg' },
@@ -34,9 +35,9 @@ export const DEFAULT_SITE_DATA: SiteData = {
     kicker: 'Associació de Jocs de Taula · Vilafortuny, Cambrils',
     headline: 'Un punt de trobada proper per jugar, descobrir i fer comunitat al voltant d’una taula.',
     introParagraph1:
-      "A Vila Jocs creiem que els jocs de taula són molt més que regles i fitxes: són l'excusa perfecta per desconnectar de les pantalles, seure cara a cara i compartir bones estones. Oferim un espai acollidor on tant els adults com les famílies i joves poden venir a compartir els seus propis jocs i gaudir dels més de 150 títols de la nostra ludoteca.",
+      "A Vila Jocs creiem que els jocs de taula són l'excusa perfecta per desconnectar de les pantalles i compartir bones estones. Oferim un espai acollidor on tant els adults com les famílies i joves poden venir a compartir els seus propis jocs i gaudir dels més de 150 títols de la nostra ludoteca.",
     introParagraph2:
-      "Tant si busques partides exigents d'eurogames i wargames com si vens amb ganes de descobrir jocs moderns des de zero, aquí trobaràs gent oberta, explicacions sense presses i ambient de club per conèixer veïns i fer comunitat a Cambrils.",
+      "Tant si jugues a eurogames com wargames, com si vens amb ganes de descobrir jocs moderns des de zero, aquí trobaràs un bon ambient per fer comunitat a Cambrils.",
     primaryCta: 'Explorar la Ludoteca',
     secondaryCta: 'Contactar',
     tabletopImage: '/images/vila-jocs/galeria-5.jpg',
@@ -46,8 +47,8 @@ export const DEFAULT_SITE_DATA: SiteData = {
     quotaNote: 'Vine a provar una tarda sense compromís, coneix la comunitat i descobreix les nostres taules.',
     buildingSectionTitle: 'On som i quan ens trobem',
     buildingSectionSubtitle:
-      'Ens reunim al Centre Cívic Vilafortuny, un espai ampli i lluminós a Cambrils. Aquí pots pujar la fotografia de l’edifici perquè els nous visitants el reconeguin fàcilment en arribar.',
-    buildingImage: '',
+      'Ens reunim al Centre Cívic Vilafortuny, un espai ampli i lluminós a Vilafortuny (Cambrils).',
+    buildingImage: '/assets/aistudio/Captura_de_pantalla_2026-11-24_a_las_19.46.06_f9ff114b.png',
     buildingImageAlt: 'Façana del Centre Cívic Vilafortuny a Cambrils',
     buildingCaption: 'Centre Cívic Vilafortuny · Avinguda del Castell de Vilafortuny, 33 (Cambrils)',
     scheduleTitle: 'Horari de trobades',
@@ -60,10 +61,10 @@ export const DEFAULT_SITE_DATA: SiteData = {
         id: 'tr-1',
         index: '',
         title: 'Adults',
-        audience: 'Estratègia profunda, eurogames i duels tàctics',
+        audience: 'Estratègia, eurogames i duels tàctics',
         description:
-          "El gruix de les nostres taules reuneix jugadors adults amb ganes de pensar, planificar i gaudir de partides de 90 a 240 minuts: gestió econòmica, subhastes, asimetria i simulació històrica.",
-        examples: 'Terraforming Mars, Food Chain Magnate, Hegemony, Through the Ages, Twilight Struggle, Puerto Rico',
+          "El gruix de les nostres taules reuneix jugadors adults amb ganes de pensar, planificar i gaudir de partides llargues.",
+        examples: 'Terraforming Mars, Tower Up, Alta Tensión, Arnak, Through the Ages, Twilight Struggle, Puerto Rico',
       },
       {
         id: 'tr-2',
@@ -160,7 +161,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
       },
       {
         id: 'fg-6',
-        title: 'Les Ruïnes Perdudes de Arnak',
+        title: 'Les Runes Perdudes de Arnak',
         subtitle: 'Exploració · Construcció de malls',
         players: '1–4',
         age: '12+',
@@ -169,7 +170,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
         description:
           "Lidera una expedició arqueològica combinant malls de cartes i treballadors. Explora l'illa, venç guardians i puja per la pista de recerca.",
         image: '/assets/aistudio/Captura_de_pantalla_2026-11-21_a_las_20.14.18_151c8c5b.png',
-        imageAlt: 'Desplegament complet de Les Ruïnes Perdudes de Arnak sobre la taula',
+        imageAlt: 'Desplegament complet de Les Runes Perdudes de Arnak sobre la taula',
         imageFit: 'cover',
       },
     ],
@@ -355,7 +356,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
     organitzacioImageAlt: 'Selecció de caixes de jocs de taula de la ludoteca de Vila Jocs',
     normativaTitle: 'Normativa i documentació oficial',
     normativaIntro:
-      "A continuació s'adjunta la normativa que regeix el funcionament de la nostra associació. Pots visualitzar o descarregar els documents oficials en PDF, o adjuntar-ne de nous en mode d’edició:",
+      "A continuació s'adjunta la normativa que regeix el funcionament de la nostra associació. Pots visualitzar o descarregar els documents oficials en PDF.",
     documents: [
       {
         id: 'doc-estatuts',
@@ -368,7 +369,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
           'Domicili social a Vilafortuny (Cambrils) i trobades habituals al Centre Cívic Vilafortuny.',
           'Funcionament democràtic mitjançant l’Assemblea General i la Junta Directiva.',
         ],
-        externalUrl: '/assets/aistudio/Estatuts_constitucio__associacio__VILA_JOCS_fe3bc6b0.pdf',
+        externalUrl: '/assets/aistudio/Estatuts_constituci__associaci__VILA_JOCS_fe3bc6b0.pdf',
         fileName: 'Estatuts_constitucio_associacio_VILA_JOCS.pdf',
       },
       {
@@ -409,8 +410,8 @@ export const DEFAULT_SITE_DATA: SiteData = {
       {
         id: 'ph-13',
         image: '/assets/aistudio/IMG_4259_f0be1682.JPG',
-        alt: 'Partida en curs de Les Ruïnes Perdudes de Arnak',
-        caption: 'Expedició en marxa a Les Ruïnes Perdudes de Arnak',
+        alt: 'Partida en curs de Les Runes Perdudes de Arnak',
+        caption: 'Expedició en marxa a Les Runes Perdudes de Arnak',
         gameTag: 'Arnak',
       },
       {

@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Download, Upload, RotateCcw, Plus, ImagePlus, CheckCircle2 } from 'lucide-react';
+import { Download, Upload, RotateCcw, Plus, ImagePlus, CheckCircle2, Copy } from 'lucide-react';
 
 interface EditToolbarProps {
   onAddGame: () => void;
   onAddPhoto: () => void;
   onExportJson: () => void;
+  onCopyJson: () => void;
   onImportJson: (file: File) => void;
   onResetDefaults: () => void;
   lastSavedAt: string | null;
@@ -14,6 +15,7 @@ export const EditToolbar: React.FC<EditToolbarProps> = ({
   onAddGame,
   onAddPhoto,
   onExportJson,
+  onCopyJson,
   onImportJson,
   onResetDefaults,
   lastSavedAt,
@@ -56,6 +58,15 @@ export const EditToolbar: React.FC<EditToolbarProps> = ({
           >
             <ImagePlus className="w-3.5 h-3.5 text-[#DC2626]" />
             Afegir foto
+          </button>
+
+          <button
+            type="button"
+            onClick={onCopyJson}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-xs font-medium text-neutral-800 hover:bg-neutral-100 transition-colors cursor-pointer whitespace-nowrap"
+          >
+            <Copy className="w-3.5 h-3.5" />
+            Copiar JSON
           </button>
 
           <button
