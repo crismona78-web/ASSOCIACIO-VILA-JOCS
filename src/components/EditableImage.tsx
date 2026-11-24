@@ -46,7 +46,7 @@ export const EditableImage: React.FC<EditableImageProps> = ({
   onChange,
   className = '',
   containerClassName = '',
-  aspectFallbackLabel = 'Imatge Vila Jocs',
+  aspectFallbackLabel = 'Imatge VILA JOCS',
 }) => {
   const [hasError, setHasError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -193,7 +193,7 @@ export const EditableImage: React.FC<EditableImageProps> = ({
                   }}
                   className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-xs text-neutral-800 focus:border-[#111418] focus:outline-none"
                 >
-                  <option value="">-- Galeria interna de Vila Jocs --</option>
+                  <option value="">-- Galeria interna de VILA JOCS --</option>
                   {AVAILABLE_CLUB_IMAGES.map((item) => (
                     <option key={item.path} value={item.path}>
                       {item.label}

@@ -35,13 +35,13 @@ export const DEFAULT_SITE_DATA: SiteData = {
     kicker: 'Associació de Jocs de Taula · Vilafortuny, Cambrils',
     headline: 'Un punt de trobada proper per jugar, descobrir i fer comunitat al voltant d’una taula.',
     introParagraph1:
-      "A Vila Jocs creiem que els jocs de taula són l'excusa perfecta per desconnectar de les pantalles i compartir bones estones. Oferim un espai acollidor on tant els adults com les famílies i joves poden venir a compartir els seus propis jocs i gaudir dels més de 150 títols de la nostra ludoteca.",
+      "A VILA JOCS creiem que els jocs de taula són l'excusa perfecta per desconnectar de les pantalles i compartir bones estones. Oferim un espai acollidor on tant els adults com les famílies i joves poden venir a compartir els seus propis jocs i gaudir dels més de 150 títols de la nostra ludoteca.",
     introParagraph2:
       "Tant si jugues a eurogames com wargames, com si vens amb ganes de descobrir jocs moderns des de zero, aquí trobaràs un bon ambient per fer comunitat a Cambrils.",
     primaryCta: 'Explorar la Ludoteca',
     secondaryCta: 'Contactar',
     tabletopImage: '/images/vila-jocs/galeria-5.jpg',
-    tabletopImageAlt: 'Tauler desplegat del joc Pan Am sobre la taula de joc de Vila Jocs',
+    tabletopImageAlt: 'Tauler desplegat del joc Pan Am sobre la taula de joc de VILA JOCS',
     tabletopImageCaption: 'Tauler de Pan Am desplegat en una de les nostres taules al Centre Cívic Vilafortuny.',
     quotaTitle: 'Vine a provar',
     quotaNote: 'Vine a provar una tarda sense compromís, coneix la comunitat i descobreix les nostres taules.',
@@ -179,7 +179,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
     eyebrow: 'Catàleg oficial',
     title: 'Ludoteca dels jocs disponibles',
     intro:
-      "A Vila Jocs disposem d'una àmplia varietat de jocs de taula, però no sempre els tindrem a l'associació de forma presencial. Si t'agradaria provar o jugar a algun joc en concret de la llista, demana-ho al grup de WhatsApp de l'Associació i te'l portarem el dia que vulguis.",
+      "A VILA JOCS disposem d'una àmplia varietat de jocs de taula, però no sempre els tindrem a l'associació de forma presencial. Si t'agradaria provar o jugar a algun joc en concret de la llista, demana-ho al grup de WhatsApp de l'Associació i te'l portarem el dia que vulguis.",
     noteBringYourOwn: 'També pots proposar-nos portar el teu propi joc per a compartir-lo amb nosaltres!',
     games: [
       { id: 'g-1', title: '¡Aventureros al Tren! Legacy: Leyendas del Oeste', bestPlayers: '4', recommendedPlayers: '2-5', age: '10+', description: 'Construye líneas de tren por todo Estados Unidos en una campaña de doce juegos', track: 'gateway' },
@@ -338,7 +338,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
     eyebrow: 'Documentació oficial',
     title: 'Normativa',
     quotaImage: '/images/vila-jocs/galeria-5.jpg',
-    quotaImageAlt: 'Taula de joc a Vila Jocs',
+    quotaImageAlt: 'Taula de joc a VILA JOCS',
     associacioTitle: 'Normativa de l’associació',
     associacioBody:
       "L'associació VILA JOCS es regeix pels seus Estatuts de constitució i el Reglament de Règim Intern.",
@@ -347,13 +347,13 @@ export const DEFAULT_SITE_DATA: SiteData = {
       'Oferim un espai de joc en què tant els adults com les famílies i joves a partir de 12 anys poden venir a compartir els seus jocs i gaudir dels que disposa l’associació.',
     ],
     dirigitImage: '/images/vila-jocs/galeria-3.jpg',
-    dirigitImageAlt: 'Taula intergeneracional jugant a Vila Jocs',
+    dirigitImageAlt: 'Taula intergeneracional jugant a VILA JOCS',
     organitzacioTitle: 'Organització de partides i jocs al local',
     organitzacioParagraphs: [
       'La planificació de les partides es comparteix amb tots els participants mitjançant el grup de WhatsApp oficial.',
     ],
     organitzacioImage: '/images/vila-jocs/galeria-8.jpg',
-    organitzacioImageAlt: 'Selecció de caixes de jocs de taula de la ludoteca de Vila Jocs',
+    organitzacioImageAlt: 'Selecció de caixes de jocs de taula de la ludoteca de VILA JOCS',
     normativaTitle: 'Normativa i documentació oficial',
     normativaIntro:
       "A continuació s'adjunta la normativa que regeix el funcionament de la nostra associació. Pots visualitzar o descarregar els documents oficials en PDF.",
@@ -363,7 +363,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
         title: 'Estatuts de constitució associació VILA JOCS',
         subtitle: 'Marc legal i finalitats de l’entitat cultural sense ànim de lucre',
         summary:
-          "Defineix la missió cultural i lúdica de Vila Jocs a Cambrils, l'estructura de la junta directiva, els drets i deures de les persones sòcies i el règim assembleari.",
+          "Defineix la missió cultural i lúdica de VILA JOCS a Cambrils, l'estructura de la junta directiva, els drets i deures de les persones sòcies i el règim assembleari.",
         highlights: [
           'Associació cultural sense ànim de lucre dedicada a la promoció dels jocs de taula moderns i estratègics.',
           'Domicili social a Vilafortuny (Cambrils) i trobades habituals al Centre Cívic Vilafortuny.',
@@ -396,7 +396,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
       {
         id: 'ph-11',
         image: '/assets/aistudio/IMG_4273_cf855411.JPG',
-        alt: 'Socis jugant a Food Chain Magnate a Vila Jocs',
+        alt: 'Socis jugant a Food Chain Magnate a VILA JOCS',
         caption: 'Partida d’estratègia econòmica a Food Chain Magnate',
         gameTag: 'Food Chain Magnate',
       },
@@ -529,7 +529,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
       {
         id: 'ph-9',
         image: '/images/vila-jocs/galeria-6.jpg',
-        alt: 'Sessió grupal a Vila Jocs',
+        alt: 'Sessió grupal a VILA JOCS',
         caption: 'Taula oberta d’iniciació i joves',
         gameTag: 'Iniciació',
       },
@@ -553,7 +553,7 @@ export const DEFAULT_SITE_DATA: SiteData = {
     instagramUrl: 'https://www.instagram.com/vilajocs/',
     instagramHandle: '@vilajocs',
     facebookUrl: 'https://www.facebook.com/profile.php?id=61587805754405',
-    facebookLabel: 'Associació Vila Jocs',
+    facebookLabel: 'Associació VILA JOCS',
     venueName: 'Centre Cívic Vilafortuny',
     address: 'Avinguda del Castell de Vilafortuny, 33, 43850 Cambrils, Tarragona',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Centre+Civic+Vilafortuny+Cambrils',

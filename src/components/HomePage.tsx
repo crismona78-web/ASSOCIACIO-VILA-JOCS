@@ -122,7 +122,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   }
                   containerClassName="h-full w-full"
                   className="h-full w-full object-cover object-center"
-                  aspectFallbackLabel="Tauler de joc a Vila Jocs"
+                  aspectFallbackLabel="Tauler de joc a VILA JOCS"
                 />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent p-4 pt-12">
                   <div className="pointer-events-auto">

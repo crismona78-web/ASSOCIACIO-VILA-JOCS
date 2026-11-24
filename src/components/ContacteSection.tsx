@@ -63,7 +63,7 @@ export const ContacteSection: React.FC<ContacteSectionProps> = ({
     level === 'family' ? section.phoneKids : section.phoneAdults;
 
   const composedText = [
-    `Hola Vila Jocs! Em dic ${name.trim() || 'un jugador'}.`,
+    `Hola VILA JOCS! Em dic ${name.trim() || 'un jugador'}.`,
     `Perfil: ${
       level === 'adults'
         ? 'Adults / estratègia'
@@ -85,7 +85,7 @@ export const ContacteSection: React.FC<ContacteSectionProps> = ({
   const mailtoLink = `mailto:${section.email}?subject=${encodeURIComponent(
     gameInterest
       ? `Sol·licitud de partida: ${gameInterest}`
-      : 'Contacte Associació Vila Jocs'
+      : 'Contacte Associació VILA JOCS'
   )}&body=${encodeURIComponent(composedText)}`;
 
   return (
@@ -333,7 +333,7 @@ export const ContacteSection: React.FC<ContacteSectionProps> = ({
                       Sol·licitud preparada per enviar
                     </h4>
                     <p className="mt-1 text-sm text-neutral-600">
-                      Tria com vols fer arribar la teva petició a Vila Jocs (es preomplirà automàticament amb les teves dades):
+                      Tria com vols fer arribar la teva petició a VILA JOCS (es preomplirà automàticament amb les teves dades):
                     </p>
                   </div>
                 </div>

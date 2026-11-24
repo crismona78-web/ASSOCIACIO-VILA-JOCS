@@ -14,12 +14,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-4">
             <img
               src={resolveAssetUrl('/images/vila-jocs/logo-vila-jocs-transparent.png')}
-              alt="Associació Vila Jocs"
+              alt="Associació VILA JOCS"
               className="h-10 w-auto object-contain select-none"
             />
             <div className="text-xs leading-relaxed">
               <div className="font-semibold text-[#1C1917]">
-                Associació Cultural de Jocs de Taula Vila Jocs
+                Associació Cultural de Jocs de Taula VILA JOCS
               </div>
               <div>Centre Cívic Vilafortuny · Cambrils, Tarragona</div>
             </div>
@@ -51,7 +51,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-stone-300/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-stone-500">
-          <p>© {new Date().getFullYear()} Associació Vila Jocs · Centre Cívic Vilafortuny</p>
+          <p>© {new Date().getFullYear()} Associació VILA JOCS · Centre Cívic Vilafortuny</p>
           <p>associaciovilajocs@gmail.com</p>
         </div>
       </div>

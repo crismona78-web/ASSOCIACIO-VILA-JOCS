@@ -32,11 +32,11 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
           type="button"
           onClick={() => handleNavClick('inici')}
           className="flex items-center shrink-0 whitespace-nowrap cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DC2626] rounded-md"
-          aria-label="Vila Jocs — Anar a la portada"
+          aria-label="VILA JOCS — Anar a la portada"
         >
           <img
             src={resolveAssetUrl('/images/vila-jocs/logo-vila-jocs-transparent.png')}
-            alt="Logotip oficial de l'Associació Vila Jocs"
+            alt="Logotip oficial de l'Associació VILA JOCS"
             className="h-11 w-auto object-contain select-none"
           />
         </button>
